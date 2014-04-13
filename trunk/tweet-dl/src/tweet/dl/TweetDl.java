@@ -13,6 +13,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 //import javax.net.ssl.HttpsURLConnection;
@@ -43,6 +45,8 @@ public class TweetDl {
     final static String ACCESS_TOKEN = "67437392-sAHI4aRJ0jupvfaDDcOFGDUQJrxivSLS9q8Jr73N1";
     final static String ACCESS_SECRET = "S9yuzo0uxA11qHW7gSV4CWCzkrvdM9knUqdDBxrgd8MfO";
     final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";
+    public final static int fileSize = 100;
+    
     public static int statusCounter;
     
     /**
@@ -70,12 +74,18 @@ public class TweetDl {
         listener = new StatusListener(){
             @Override
             public void onStatus(Status status) {
-                System.out.println(status.getUser().getName() + " : " + status.getText());
-                statusCounter++;
-                
-                if(statusCounter%100==0)
-                {
-                    FileExporter.createXML(status);
+                try {
+                    System.out.println(status.getUser().getName() + " : " + status.getText());
+                    statusCounter++;
+                    //int fileSelect = statusCounter/fileSize;
+                    if(statusCounter%fileSize==0 || statusCounter==1)
+                    {
+                        FileExporter.getInstance().createXML(statusCounter,status);
+                    }
+                    else
+                        FileExporter.getInstance().appendStatus(statusCounter, status);
+                } catch (Exception ex) {
+                    Logger.getLogger(TweetDl.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             @Override
@@ -84,7 +94,7 @@ public class TweetDl {
             public void onTrackLimitationNotice(int numberOfLimitedStatuses) {}
             @Override
             public void onException(Exception ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
             
             @Override
