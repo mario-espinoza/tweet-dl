@@ -46,7 +46,7 @@ public class FileExporter {
     public static final String PlaceName="Place";
     public static final String SourceName="Source";
         
-    public static final String outputName = "Output-";
+    public static final String outputName = "./output/Output-";
     public static final String outputFileExtention = ".xml";
     
     private static FileExporter instance;
