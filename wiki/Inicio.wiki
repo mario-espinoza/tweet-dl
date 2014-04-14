@@ -1,13 +1,14 @@
-#summary One-sentence summary of this page.
+#summary Descarga y análisis de Tweets en tiempo real usando Streaming API de Twitter
 
 = Introduction =
 
-Add your content here.
+Tweet-dl Es un proyecto de investigación del curso Tecnologías de la Web de la Universidad Nacional Andrés Bello.
 
 
-= Details =
+= TODO =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * Interfaz Gráfica
+  * Parametrización de Stream de Consulta
+  * Personalización de contenido a descargar.
+  * Análisis de Datos y texto.
+  * Definición de métricas de estudio.
