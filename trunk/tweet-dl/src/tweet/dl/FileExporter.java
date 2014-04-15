@@ -9,6 +9,7 @@ package tweet.dl;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -31,20 +32,7 @@ import twitter4j.Status;
  * @author mespinozas
  */
 public class FileExporter {
-    public static final String captureCount = "Capture_Count";
     
-    public static final String RootElementName = "Twitter";
-    public static final String StatusName = "Status";
-    public static final String TextName="Text";
-    public static final String UserScreenName="User";
-    public static final String UserName="Name";
-    public static final String ContributorsName="Contributor";
-    public static final String CreatedAtName="CreatedAt";
-    public static final String CountryName="Country";
-    public static final String IdName="Id";
-    public static final String LangName="Lang";
-    public static final String PlaceName="Place";
-    public static final String SourceName="Source";
         
     public static final String outputName = "./output/Output-";
     public static final String outputFileExtention = ".xml";
@@ -79,50 +67,51 @@ public class FileExporter {
             int fileNumber = number/TweetDl.fileSize;
             DocumentBuilderFactory docFactory = documentBuilderFactor.get();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            ResourceBundle bundle = ResourceBundle.getBundle("properties/ExportFields");
 
             Document document = docBuilder.newDocument();
-            Element rootElement = document.createElement(RootElementName);
+            Element rootElement = document.createElement(bundle.getString("RootElementNameKey"));
             document.appendChild(rootElement);
             
-            Element status = document.createElement(StatusName);
-            status.setAttribute(captureCount, number+"");
+            Element status = document.createElement(bundle.getString("StatusNameKey"));
+            status.setAttribute(bundle.getString("captureCountKey"), number+"");
             rootElement.appendChild(status);
             
-            Element id = document.createElement(IdName);
+            Element id = document.createElement(bundle.getString("IdNameKey"));
             id.appendChild(document.createTextNode(newStatus.getId()+""));
             status.appendChild(id);
             
-            Element text = document.createElement(TextName);
+            Element text = document.createElement(bundle.getString("TextNameKey"));
             text.appendChild(document.createTextNode(newStatus.getText()));
             status.appendChild(text);
             
-            Element user = document.createElement(UserScreenName);
+            Element user = document.createElement(bundle.getString("UserScreenNameKey"));
             user.appendChild(document.createTextNode(newStatus.getUser().getScreenName()));
             status.appendChild(user);
             
-            Element name = document.createElement(UserName);
+            Element name = document.createElement(bundle.getString("UserNameKey"));
             name.appendChild(document.createTextNode(newStatus.getUser().getName()));
             status.appendChild(name);
             
-            Element contributors = document.createElement(ContributorsName);
+            Element contributors = document.createElement(bundle.getString("ContributorsNameKey"));
             contributors.appendChild(document.createTextNode(Arrays.toString(newStatus.getContributors())));
             status.appendChild(contributors);
             
-            Element createdAt = document.createElement(CreatedAtName);
+            Element createdAt = document.createElement(bundle.getString("CreatedAtNameKey"));
             createdAt.appendChild(document.createTextNode(newStatus.getCreatedAt().toString()));
             status.appendChild(createdAt);
                         
-            Element lang = document.createElement(LangName);
+            Element lang = document.createElement(bundle.getString("LangNameKey"));
             lang.appendChild(document.createTextNode(newStatus.getLang()));
             status.appendChild(lang);
                         
-            Element statusSource = document.createElement(SourceName);
+            Element statusSource = document.createElement(bundle.getString("SourceNameKey"));
             statusSource.appendChild(document.createTextNode(newStatus.getSource()));
             status.appendChild(statusSource);
             
             if(newStatus.getPlace()!=null)
             {
-                Element country = document.createElement(CountryName);
+                Element country = document.createElement(bundle.getString("CountryNameKey"));
                 country.appendChild(document.createTextNode(newStatus.getPlace().getCountry()));
                 status.appendChild(country);
             }
@@ -203,49 +192,50 @@ public class FileExporter {
             //synchronized (fw) {
             DocumentBuilderFactory documentBuilderFactory = documentBuilderFactor.get();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            ResourceBundle bundle = ResourceBundle.getBundle("properties/ExportFields");
             
             Document document = documentBuilder.parse(outputName+fileNumber+outputFileExtention);
             Element root = document.getDocumentElement();
             
-            Element status = document.createElement(StatusName);
-            status.setAttribute(captureCount, number+"");
+            Element status = document.createElement(bundle.getString("StatusNameKey"));
+            status.setAttribute(bundle.getString("captureCount"), number+"");
             root.appendChild(status);
             
-            Element id = document.createElement(IdName);
+            Element id = document.createElement(bundle.getString("IdNameKey"));
             id.appendChild(document.createTextNode(newStatus.getId()+""));
             status.appendChild(id);
             
-            Element text = document.createElement(TextName);
+            Element text = document.createElement(bundle.getString("TextNameKey"));
             text.appendChild(document.createTextNode(newStatus.getText()));
             status.appendChild(text);
             
-            Element user = document.createElement(UserScreenName);
+            Element user = document.createElement(bundle.getString("UserScreenNameKey"));
             user.appendChild(document.createTextNode(newStatus.getUser().getScreenName()));
             status.appendChild(user);
             
-            Element name = document.createElement(UserName);
+            Element name = document.createElement(bundle.getString("UserNameKey"));
             name.appendChild(document.createTextNode(newStatus.getUser().getName()));
             status.appendChild(name);
             
-            Element contributors = document.createElement(ContributorsName);
+            Element contributors = document.createElement(bundle.getString("ContributorsNameKey"));
             contributors.appendChild(document.createTextNode(Arrays.toString(newStatus.getContributors())));
             status.appendChild(contributors);
             
-            Element createdAt = document.createElement(CreatedAtName);
+            Element createdAt = document.createElement(bundle.getString("CreatedAtNameKey"));
             createdAt.appendChild(document.createTextNode(newStatus.getCreatedAt().toString()));
             status.appendChild(createdAt);
             
-            Element lang = document.createElement(LangName);
+            Element lang = document.createElement(bundle.getString("LangNameKey"));
             lang.appendChild(document.createTextNode(newStatus.getLang()));
             status.appendChild(lang);
                         
-            Element statusSource = document.createElement(SourceName);
+            Element statusSource = document.createElement(bundle.getString("SourceNameKey"));
             statusSource.appendChild(document.createTextNode(newStatus.getSource()));
             status.appendChild(statusSource);
             
             if(newStatus.getPlace()!=null)
             {
-                Element country = document.createElement(CountryName);
+                Element country = document.createElement(bundle.getString("CountryNameKey"));
                 country.appendChild(document.createTextNode(newStatus.getPlace().getCountry()));
                 status.appendChild(country);
             }
