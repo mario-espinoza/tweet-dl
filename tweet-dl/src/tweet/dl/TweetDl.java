@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Mac;
@@ -34,20 +35,21 @@ import twitter4j.conf.ConfigurationBuilder;
  * @author Meny
  */
 public class TweetDl {
-    final static String CONSUMER_KEY = "6MllqL2GH0SVI0N6pCz9pJ669";
+/*    final static String CONSUMER_KEY = "6MllqL2GH0SVI0N6pCz9pJ669";
     final static String CONSUMER_SECRET = "NNo2FmSdP9rWfkJARv3VQybIolmrx3wyq0iku9FqqU2H7xiGgP";
     final static String TwitterTokenURL = "https://api.twitter.com/oauth2/token";
     final static String TwitterStreamURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=";
     final static String ACCESS_TOKEN = "67437392-sAHI4aRJ0jupvfaDDcOFGDUQJrxivSLS9q8Jr73N1";
     final static String ACCESS_SECRET = "S9yuzo0uxA11qHW7gSV4CWCzkrvdM9knUqdDBxrgd8MfO";
-    final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";
+    final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";*/
     public final static int fileSize = 100;
+    
+    static StatusListener listener;
     
     public static int statusCounter;
     
     /**
      * @param args the command line arguments
-     * @throws twitter4j.TwitterException
      */
     public static void main(String[] args) {
         
@@ -57,18 +59,21 @@ public class TweetDl {
     
     public static void startCapture() throws TwitterException
     {
+        ResourceBundle bundle = ResourceBundle.getBundle("properties/Autentication");
+        ResourceBundle bundleSecret = ResourceBundle.getBundle("properties/private/AutenticationSecret");
+        
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true);
-        cb.setOAuthConsumerKey(CONSUMER_KEY);
-        cb.setOAuthConsumerSecret(CONSUMER_SECRET);
-        cb.setOAuthAccessToken(ACCESS_TOKEN);
-        cb.setOAuthAccessTokenSecret(ACCESS_SECRET);
+        cb.setOAuthConsumerKey(bundle.getString("CONSUMER_KEY"));
+        cb.setOAuthConsumerSecret(bundleSecret.getString("CONSUMER_SECRET"));
+        cb.setOAuthAccessToken(bundle.getString("ACCESS_TOKEN"));
+        cb.setOAuthAccessTokenSecret(bundleSecret.getString("ACCESS_SECRET"));
         
         statusCounter=0;
         
         TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
         
-        StatusListener listener;
+        
         listener = new StatusListener(){
             @Override
             public void onStatus(Status status) {
@@ -112,6 +117,7 @@ public class TweetDl {
     
     public static void requestAuthorization() {
         StringBuilder buffer = new StringBuilder();
+        
         try {
         /** 
          * get the time - note: value below zero 
@@ -124,9 +130,11 @@ public class TweetDl {
              * Listing of all parameters necessary to retrieve a token
              * (sorted lexicographically as demanded)
              */
+            
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Autentication");
              String[][] data = {
                 {"oauth_callback", ""},
-                {"oauth_consumer_key", CONSUMER_KEY},
+                {"oauth_consumer_key", bundle.getString("CONSUMER_KEY")},
                 {"oauth_nonce",  String.valueOf(millis)},
                 {"oauth_signature", ""},
                 {"oauth_signature_method", "HMAC-SHA1"},
@@ -138,7 +146,7 @@ public class TweetDl {
              * Generation of the signature base string
              */
             String signature_base_string = 
-                "POST&"+URLEncoder.encode(TwitterRequestURL, "UTF-8")+"&";
+                "POST&"+URLEncoder.encode(bundle.getString("TwitterRequestURL"), "UTF-8")+"&";
             for(int i = 0; i < data.length; i++) {
                 // ignore the empty oauth_signature field
                 if(i != 3) {
@@ -155,7 +163,7 @@ public class TweetDl {
              * Sign the request
              */
             Mac m = Mac.getInstance("HmacSHA1");
-            m.init(new SecretKeySpec(CONSUMER_SECRET.getBytes(), "HmacSHA1"));
+            m.init(new SecretKeySpec(bundle.getString("CONSUMER_SECRET").getBytes(), "HmacSHA1"));
             m.update(signature_base_string.getBytes());
             byte[] res = m.doFinal();
             String sig = String.valueOf(Base64Coder.encode(res));
@@ -176,7 +184,7 @@ public class TweetDl {
            System.out.println("Signature: "+sig);
 
            String charset = "UTF-8";
-           URLConnection connection = new URL(TwitterRequestURL).openConnection();
+           URLConnection connection = new URL(bundle.getString("TwitterRequestURL")).openConnection();
            connection.setDoInput(true);
            connection.setDoOutput(true);
            connection.setRequestProperty("Accept-Charset", charset);

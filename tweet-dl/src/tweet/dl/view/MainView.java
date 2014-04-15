@@ -5,7 +5,11 @@
  */
 
 package tweet.dl.view;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import tweet.dl.*;
+import twitter4j.TwitterException;
 
 /**
  *
@@ -47,9 +51,9 @@ public class MainView extends javax.swing.JFrame {
         idCB = new javax.swing.JCheckBox();
         User = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        contributorCB = new javax.swing.JCheckBox();
         jCheckBox6 = new javax.swing.JCheckBox();
-        startCapture = new javax.swing.JToggleButton();
+        captureBTN = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -59,41 +63,42 @@ public class MainView extends javax.swing.JFrame {
 
         AuthenticateLabel.setText("Autenticar:");
 
-        AuthenticateBTN.setText("Enviar");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es"); // NOI18N
+        AuthenticateBTN.setText(bundle.getString("AuthenticateKey")); // NOI18N
         AuthenticateBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AuthenticateBTNActionPerformed(evt);
             }
         });
 
-        sampleLabel.setText("Tamaño Muestra:");
+        sampleLabel.setText(bundle.getString("SampleSizeKey")); // NOI18N
 
         sampleSpinner.setValue(100);
 
-        textCB.setText("Text");
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("properties/ExportFields"); // NOI18N
+        textCB.setText(bundle1.getString("TextNameKey")); // NOI18N
 
-        idCB.setText("ID");
+        idCB.setText(bundle1.getString("IdNameKey")); // NOI18N
 
         User.setText("jCheckBox3");
 
         jCheckBox4.setText("jCheckBox4");
 
-        jCheckBox5.setText("jCheckBox5");
+        contributorCB.setText(bundle1.getString("ContributorsNameKey")); // NOI18N
 
         jCheckBox6.setText("jCheckBox6");
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Languaje_es"); // NOI18N
-        startCapture.setText(bundle.getString("StartKey")); // NOI18N
-        startCapture.addActionListener(new java.awt.event.ActionListener() {
+        captureBTN.setText(bundle.getString("StartKey")); // NOI18N
+        captureBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startCaptureActionPerformed(evt);
+                captureBTNActionPerformed(evt);
             }
         });
 
-        jMenu1.setText("File");
+        jMenu1.setText(bundle.getString("FileKey")); // NOI18N
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText(bundle.getString("EditKey")); // NOI18N
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -116,21 +121,22 @@ public class MainView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(idCB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(textCB)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox5))
                             .addComponent(User)
-                            .addComponent(jCheckBox4))))
-                .addContainerGap(291, Short.MAX_VALUE))
+                            .addComponent(jCheckBox4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(idCB)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCheckBox6))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(textCB)
+                                    .addGap(97, 97, 97)
+                                    .addComponent(contributorCB))))))
+                .addContainerGap(268, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(startCapture, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126))
+                .addComponent(captureBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +152,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textCB)
-                    .addComponent(jCheckBox5))
+                    .addComponent(contributorCB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idCB)
@@ -156,7 +162,7 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(startCapture)
+                .addComponent(captureBTN)
                 .addGap(52, 52, 52))
         );
 
@@ -169,13 +175,20 @@ public class MainView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_AuthenticateBTNActionPerformed
 
-    private void startCaptureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startCaptureActionPerformed
+    private void captureBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_captureBTNActionPerformed
         // TODO add your handling code here:
-        try{TweetDl.startCapture();}
-        catch(Exception e)
+        try{
+            if(captureBTN.isSelected())
+            {
+                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es");
+                captureBTN.setText(bundle.getString("StopCaptureKey"));
+            }
+            TweetDl.startCapture();
+        }
+        catch(TwitterException e)
         {
         }
-    }//GEN-LAST:event_startCaptureActionPerformed
+    }//GEN-LAST:event_captureBTNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,9 +229,10 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton AuthenticateBTN;
     private javax.swing.JLabel AuthenticateLabel;
     private javax.swing.JCheckBox User;
+    private javax.swing.JToggleButton captureBTN;
+    private javax.swing.JCheckBox contributorCB;
     private javax.swing.JCheckBox idCB;
     private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -226,7 +240,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel sampleLabel;
     private javax.swing.JSpinner sampleSpinner;
-    private javax.swing.JToggleButton startCapture;
     private javax.swing.JCheckBox textCB;
     // End of variables declaration//GEN-END:variables
 
