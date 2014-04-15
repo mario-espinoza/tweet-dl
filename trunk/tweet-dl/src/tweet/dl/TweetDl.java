@@ -107,11 +107,13 @@ public class TweetDl {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    
+    //TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
         twitterStream.addListener(listener);
     // sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
-        twitterStream.sample();        
-    }    
+        twitterStream.sample();
+        
+    }
+    
     
     public static void requestAuthorization() {
         StringBuilder buffer = new StringBuilder();
@@ -140,7 +142,8 @@ public class TweetDl {
             /**
              * Generation of the signature base string
              */
-            String signature_base_string = "POST&"+URLEncoder.encode(TwitterRequestURL, "UTF-8")+"&";
+            String signature_base_string = 
+                "POST&"+URLEncoder.encode(TwitterRequestURL, "UTF-8")+"&";
             for(int i = 0; i < data.length; i++) {
                 // ignore the empty oauth_signature field
                 if(i != 3) {
@@ -170,7 +173,7 @@ public class TweetDl {
            for(String[] item : data) {
                 header += item[0]+"=\""+item[1]+"\", ";
            }
-           // quitar última coma agregada
+           // cut off last appended comma
            header = header.substring(0, header.length()-2);
 
            System.out.println("Signature Base String: "+signature_base_string);
