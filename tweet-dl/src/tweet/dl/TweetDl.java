@@ -17,19 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-//import javax.net.ssl.HttpsURLConnection;
-//import twitter4j.FilterQuery;
+import tweet.dl.view.MainView;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
-//import twitter4j.Twitter;
 import twitter4j.TwitterException;
-//import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
-//import org.apache.http.client.methods.HttpPost;
 
 //import View.MainView;
 
@@ -53,11 +49,14 @@ public class TweetDl {
      * @param args the command line arguments
      * @throws twitter4j.TwitterException
      */
-    public static void main(String[] args) throws TwitterException{
+    public static void main(String[] args) {
         
-        //MainView.i.getInstance();
-        
-        
+        MainView.getInstance().setVisible(true);                
+    }
+    
+    
+    public static void startCapture() throws TwitterException
+    {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true);
         cb.setOAuthConsumerKey(CONSUMER_KEY);
@@ -65,7 +64,6 @@ public class TweetDl {
         cb.setOAuthAccessToken(ACCESS_TOKEN);
         cb.setOAuthAccessTokenSecret(ACCESS_SECRET);
         
-        requestAuthorization();       
         statusCounter=0;
         
         TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
@@ -107,13 +105,10 @@ public class TweetDl {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
-    //TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-        twitterStream.addListener(listener);
-    // sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
-        twitterStream.sample();
-        
-    }
     
+        twitterStream.addListener(listener);        
+        twitterStream.sample();
+    }
     
     public static void requestAuthorization() {
         StringBuilder buffer = new StringBuilder();
