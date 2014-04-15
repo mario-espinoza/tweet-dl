@@ -74,7 +74,7 @@ public class FileExporter {
             document.appendChild(rootElement);
             
             Element status = document.createElement(bundle.getString("StatusNameKey"));
-            status.setAttribute(bundle.getString("captureCountKey"), number+"");
+            status.setAttribute(bundle.getString("CaptureCountKey"), number+"");
             rootElement.appendChild(status);
             
             Element id = document.createElement(bundle.getString("IdNameKey"));
@@ -198,7 +198,7 @@ public class FileExporter {
             Element root = document.getDocumentElement();
             
             Element status = document.createElement(bundle.getString("StatusNameKey"));
-            status.setAttribute(bundle.getString("captureCount"), number+"");
+            status.setAttribute(bundle.getString("CaptureCountKey"), number+"");
             root.appendChild(status);
             
             Element id = document.createElement(bundle.getString("IdNameKey"));

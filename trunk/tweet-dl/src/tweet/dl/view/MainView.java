@@ -7,6 +7,7 @@
 package tweet.dl.view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import tweet.dl.*;
 import twitter4j.TwitterException;
@@ -47,13 +48,14 @@ public class MainView extends javax.swing.JFrame {
         AuthenticateBTN = new javax.swing.JButton();
         sampleLabel = new javax.swing.JLabel();
         sampleSpinner = new javax.swing.JSpinner();
+        captureBTN = new javax.swing.JToggleButton();
+        fieldsPanel = new javax.swing.JPanel();
         textCB = new javax.swing.JCheckBox();
         idCB = new javax.swing.JCheckBox();
-        User = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        userCB = new javax.swing.JCheckBox();
+        screenNameCB = new javax.swing.JCheckBox();
+        createdAtCB = new javax.swing.JCheckBox();
         contributorCB = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        captureBTN = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -75,25 +77,33 @@ public class MainView extends javax.swing.JFrame {
 
         sampleSpinner.setValue(100);
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("properties/ExportFields"); // NOI18N
-        textCB.setText(bundle1.getString("TextNameKey")); // NOI18N
-
-        idCB.setText(bundle1.getString("IdNameKey")); // NOI18N
-
-        User.setText("jCheckBox3");
-
-        jCheckBox4.setText("jCheckBox4");
-
-        contributorCB.setText(bundle1.getString("ContributorsNameKey")); // NOI18N
-
-        jCheckBox6.setText("jCheckBox6");
-
         captureBTN.setText(bundle.getString("StartKey")); // NOI18N
         captureBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 captureBTNActionPerformed(evt);
             }
         });
+
+        fieldsPanel.setLayout(new java.awt.GridLayout(11, 2));
+
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("properties/ExportFields"); // NOI18N
+        textCB.setText(bundle1.getString("TextNameKey")); // NOI18N
+        fieldsPanel.add(textCB);
+
+        idCB.setText(bundle1.getString("IdNameKey")); // NOI18N
+        fieldsPanel.add(idCB);
+
+        userCB.setText(bundle1.getString("UserNameKey")); // NOI18N
+        fieldsPanel.add(userCB);
+
+        screenNameCB.setText(bundle1.getString("UserScreenNameKey")); // NOI18N
+        fieldsPanel.add(screenNameCB);
+
+        createdAtCB.setText(bundle1.getString("CreatedAtNameKey")); // NOI18N
+        fieldsPanel.add(createdAtCB);
+
+        contributorCB.setText(bundle1.getString("ContributorsNameKey")); // NOI18N
+        fieldsPanel.add(contributorCB);
 
         jMenu1.setText(bundle.getString("FileKey")); // NOI18N
         jMenuBar1.add(jMenu1);
@@ -107,36 +117,23 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(captureBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
             .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fieldsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AuthenticateLabel)
                             .addComponent(sampleLabel))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(sampleSpinner)
-                            .addComponent(AuthenticateBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(User)
-                            .addComponent(jCheckBox4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(idCB)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox6))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(textCB)
-                                    .addGap(97, 97, 97)
-                                    .addComponent(contributorCB))))))
-                .addContainerGap(268, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(captureBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+                            .addComponent(AuthenticateBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,19 +146,9 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sampleLabel)
                     .addComponent(sampleSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textCB)
-                    .addComponent(contributorCB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idCB)
-                    .addComponent(jCheckBox6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(User)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(fieldsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(captureBTN)
                 .addGap(52, 52, 52))
         );
@@ -177,13 +164,26 @@ public class MainView extends javax.swing.JFrame {
 
     private void captureBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_captureBTNActionPerformed
         // TODO add your handling code here:
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es");
         try{
             if(captureBTN.isSelected())
             {
-                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es");
-                captureBTN.setText(bundle.getString("StopCaptureKey"));
+                int showConfirmDialog;
+                showConfirmDialog = JOptionPane.showConfirmDialog(rootPane, bundle.getString("FileDeletionKey"));
+                
+                if(showConfirmDialog==0)
+                {
+                    captureBTN.setText(bundle.getString("StopCaptureKey"));
+                
+                    TweetDl.startCapture();
+                }
             }
-            TweetDl.startCapture();
+            else
+            {
+                //java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es");
+                captureBTN.setText(bundle.getString("StartCaptureKey"));
+                TweetDl.stopCapture();
+            }
         }
         catch(TwitterException e)
         {
@@ -228,19 +228,20 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AuthenticateBTN;
     private javax.swing.JLabel AuthenticateLabel;
-    private javax.swing.JCheckBox User;
     private javax.swing.JToggleButton captureBTN;
     private javax.swing.JCheckBox contributorCB;
+    private javax.swing.JCheckBox createdAtCB;
+    private javax.swing.JPanel fieldsPanel;
     private javax.swing.JCheckBox idCB;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel sampleLabel;
     private javax.swing.JSpinner sampleSpinner;
+    private javax.swing.JCheckBox screenNameCB;
     private javax.swing.JCheckBox textCB;
+    private javax.swing.JCheckBox userCB;
     // End of variables declaration//GEN-END:variables
 
    

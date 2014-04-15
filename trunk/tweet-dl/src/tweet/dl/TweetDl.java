@@ -43,7 +43,7 @@ public class TweetDl {
     final static String ACCESS_SECRET = "S9yuzo0uxA11qHW7gSV4CWCzkrvdM9knUqdDBxrgd8MfO";
     final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";*/
     public final static int fileSize = 100;
-    
+    static TwitterStream twitterStream;
     static StatusListener listener;
     
     public static int statusCounter;
@@ -71,7 +71,7 @@ public class TweetDl {
         
         statusCounter=0;
         
-        TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+        twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
         
         
         listener = new StatusListener(){
@@ -115,6 +115,12 @@ public class TweetDl {
         twitterStream.sample();
     }
     
+    public static void stopCapture()
+    {
+       twitterStream.shutdown();
+       
+    }
+    
     public static void requestAuthorization() {
         StringBuilder buffer = new StringBuilder();
         
@@ -130,7 +136,7 @@ public class TweetDl {
              * Listing of all parameters necessary to retrieve a token
              * (sorted lexicographically as demanded)
              */
-            
+            ResourceBundle bundleSecret = ResourceBundle.getBundle("properties/private/AutenticationSecret");
             java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Autentication");
              String[][] data = {
                 {"oauth_callback", ""},
@@ -163,7 +169,7 @@ public class TweetDl {
              * Sign the request
              */
             Mac m = Mac.getInstance("HmacSHA1");
-            m.init(new SecretKeySpec(bundle.getString("CONSUMER_SECRET").getBytes(), "HmacSHA1"));
+            m.init(new SecretKeySpec(bundleSecret.getString("CONSUMER_SECRET").getBytes(), "HmacSHA1"));
             m.update(signature_base_string.getBytes());
             byte[] res = m.doFinal();
             String sig = String.valueOf(Base64Coder.encode(res));
