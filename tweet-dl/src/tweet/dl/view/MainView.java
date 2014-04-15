@@ -63,9 +63,9 @@ public class MainView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tweet-dl");
 
-        AuthenticateLabel.setText("Autenticar:");
-
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("properties/Languaje_es"); // NOI18N
+        AuthenticateLabel.setText(bundle.getString("AskAuthKey")); // NOI18N
+
         AuthenticateBTN.setText(bundle.getString("AuthenticateKey")); // NOI18N
         AuthenticateBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,8 +131,8 @@ public class MainView extends javax.swing.JFrame {
                             .addComponent(sampleLabel))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sampleSpinner)
-                            .addComponent(AuthenticateBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(AuthenticateBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(sampleSpinner))))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
