@@ -82,7 +82,7 @@ public class FileExporter {
             status.appendChild(id);
             
             Element text = document.createElement(bundle.getString("TextNameKey"));
-            text.appendChild(document.createTextNode(newStatus.getText()));
+            text.appendChild(document.createTextNode(stripNonValidXMLCharacters(newStatus.getText())));
             status.appendChild(text);
             
             Element user = document.createElement(bundle.getString("UserScreenNameKey"));
@@ -251,6 +251,25 @@ public class FileExporter {
             Logger.getLogger(FileExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public String stripNonValidXMLCharacters(String in) {
+        StringBuilder out = new StringBuilder(); // Used to hold the output.
+        char current; // Used to reference the current character.
+
+        if (in == null || ("".equals(in))) 
+            return ""; // vacancy test.
+        for (int i = 0; i < in.length(); i++) {
+            current = in.charAt(i); // NOTE: No IndexOutOfBoundsException caught here; it should not happen.
+            if ((current == 0x9) ||
+                (current == 0xA) ||
+                (current == 0xD) ||
+                ((current >= 0x20) && (current <= 0xD7FF)) ||
+                ((current >= 0xE000) && (current <= 0xFFFD)) ||
+                ((current >= 0x10000) && (current <= 0x10FFFF)))
+                out.append(current);
+        }
+        return out.toString();
+    }     
 }
 
 
