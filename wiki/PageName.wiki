@@ -1,0 +1,12 @@
+#summary One-sentence summary of this page.
+
+= Requsitos funcionales=
+
+R1
+
+R2
+= Requisitos No Funcionales =
+
+Add your content here.  Format your content with:
+  * RNF1
+  * RNF1
