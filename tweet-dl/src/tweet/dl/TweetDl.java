@@ -42,11 +42,41 @@ public class TweetDl {
     final static String ACCESS_TOKEN = "67437392-sAHI4aRJ0jupvfaDDcOFGDUQJrxivSLS9q8Jr73N1";
     final static String ACCESS_SECRET = "S9yuzo0uxA11qHW7gSV4CWCzkrvdM9knUqdDBxrgd8MfO";
     final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";*/
-    public final static int fileSize = 100;
+    private static int fileSize=100;
+// = 100;
     static TwitterStream twitterStream;
     static StatusListener listener;
     
-    public static int statusCounter;
+    private static int statusCounter;
+
+    /**
+     * @return the fileSize
+     */
+    public static int getFileSize() {
+        return fileSize;
+    }
+
+    /**
+     * @param aFileSize the fileSize to set
+     */
+    public static void setFileSize(int aFileSize) {
+        fileSize = aFileSize;
+    }
+    
+    private TweetDl instance;
+    
+    private TweetDl()
+    {
+        //setFileSize(100);
+    }
+    
+    public TweetDl getInstance()
+    {
+        if(instance==null)
+            return new TweetDl();
+        else
+            return instance;
+    }
     
     /**
      * @param args the command line arguments
@@ -69,7 +99,7 @@ public class TweetDl {
         cb.setOAuthAccessToken(bundle.getString("ACCESS_TOKEN"));
         cb.setOAuthAccessTokenSecret(bundleSecret.getString("ACCESS_SECRET"));
         
-        statusCounter=0;
+        statusCounter=1;
         
         twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
         
@@ -79,14 +109,15 @@ public class TweetDl {
             public void onStatus(Status status) {
                 try {
                     System.out.println(status.getUser().getName() + " : " + status.getText());
-                    statusCounter++;
+                    
                     //int fileSelect = statusCounter/fileSize;
-                    if(statusCounter%fileSize==0 || statusCounter==1)
+                    if(statusCounter%getFileSize()==1)
                     {
                         FileExporter.getInstance().createXML(statusCounter,status);
                     }
                     else
                         FileExporter.getInstance().appendStatus(statusCounter, status);
+                    statusCounter++;
                 } catch (Exception ex) {
                     Logger.getLogger(TweetDl.class.getName()).log(Level.SEVERE, null, ex);
                 }
