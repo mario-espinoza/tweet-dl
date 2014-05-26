@@ -33,6 +33,12 @@ public class MainView extends javax.swing.JFrame {
         else
             return instance;
     }
+    
+    private int getSampleSize()
+    {
+        return 100;
+        //TweetDl.getInstance()
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +60,14 @@ public class MainView extends javax.swing.JFrame {
         idCB = new javax.swing.JCheckBox();
         userCB = new javax.swing.JCheckBox();
         screenNameCB = new javax.swing.JCheckBox();
+        userNameCB = new javax.swing.JCheckBox();
+        countryCB = new javax.swing.JCheckBox();
         createdAtCB = new javax.swing.JCheckBox();
         contributorCB = new javax.swing.JCheckBox();
+        langCB = new javax.swing.JCheckBox();
+        placeCB = new javax.swing.JCheckBox();
+        sourceCB = new javax.swing.JCheckBox();
+        platformCB = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -84,7 +96,7 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        fieldsPanel.setLayout(new java.awt.GridLayout(11, 2));
+        fieldsPanel.setLayout(new java.awt.GridLayout(8, 4));
 
         java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("properties/ExportFields"); // NOI18N
         textCB.setText(bundle1.getString("TextNameKey")); // NOI18N
@@ -93,17 +105,35 @@ public class MainView extends javax.swing.JFrame {
         idCB.setText(bundle1.getString("IdNameKey")); // NOI18N
         fieldsPanel.add(idCB);
 
-        userCB.setText(bundle1.getString("UserNameKey")); // NOI18N
+        userCB.setText(bundle1.getString("UserKey")); // NOI18N
         fieldsPanel.add(userCB);
 
         screenNameCB.setText(bundle1.getString("UserScreenNameKey")); // NOI18N
         fieldsPanel.add(screenNameCB);
+
+        userNameCB.setText(bundle1.getString("UserNameKey")); // NOI18N
+        fieldsPanel.add(userNameCB);
+
+        countryCB.setText(bundle1.getString("CountryNameKey")); // NOI18N
+        fieldsPanel.add(countryCB);
 
         createdAtCB.setText(bundle1.getString("CreatedAtNameKey")); // NOI18N
         fieldsPanel.add(createdAtCB);
 
         contributorCB.setText(bundle1.getString("ContributorsNameKey")); // NOI18N
         fieldsPanel.add(contributorCB);
+
+        langCB.setText(bundle1.getString("LangNameKey")); // NOI18N
+        fieldsPanel.add(langCB);
+
+        placeCB.setText(bundle1.getString("PlaceNameKey")); // NOI18N
+        fieldsPanel.add(placeCB);
+
+        sourceCB.setText(bundle1.getString("SourceNameKey")); // NOI18N
+        fieldsPanel.add(sourceCB);
+
+        platformCB.setText(bundle1.getString("PlatformKey")); // NOI18N
+        fieldsPanel.add(platformCB);
 
         jMenu1.setText(bundle.getString("FileKey")); // NOI18N
         jMenuBar1.add(jMenu1);
@@ -148,7 +178,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(sampleSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(fieldsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addComponent(captureBTN)
                 .addGap(52, 52, 52))
         );
@@ -230,6 +260,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel AuthenticateLabel;
     private javax.swing.JToggleButton captureBTN;
     private javax.swing.JCheckBox contributorCB;
+    private javax.swing.JCheckBox countryCB;
     private javax.swing.JCheckBox createdAtCB;
     private javax.swing.JPanel fieldsPanel;
     private javax.swing.JCheckBox idCB;
@@ -237,11 +268,16 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JCheckBox langCB;
+    private javax.swing.JCheckBox placeCB;
+    private javax.swing.JCheckBox platformCB;
     private javax.swing.JLabel sampleLabel;
     private javax.swing.JSpinner sampleSpinner;
     private javax.swing.JCheckBox screenNameCB;
+    private javax.swing.JCheckBox sourceCB;
     private javax.swing.JCheckBox textCB;
     private javax.swing.JCheckBox userCB;
+    private javax.swing.JCheckBox userNameCB;
     // End of variables declaration//GEN-END:variables
 
    

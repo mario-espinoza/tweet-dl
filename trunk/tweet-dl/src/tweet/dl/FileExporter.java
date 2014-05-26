@@ -64,7 +64,7 @@ public class FileExporter {
     public void createXML(int number, Status newStatus) {
         try 
         {
-            int fileNumber = number/TweetDl.fileSize;
+            int fileNumber = (number-1)/TweetDl.getFileSize()+1;
             DocumentBuilderFactory docFactory = documentBuilderFactor.get();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             ResourceBundle bundle = ResourceBundle.getBundle("properties/ExportFields");
@@ -120,7 +120,7 @@ public class FileExporter {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(document);
             
-            StreamResult result = new StreamResult(new File(outputName+fileNumber+outputFileExtention));
+            StreamResult result = new StreamResult(new File(outputName+(fileNumber)+outputFileExtention));
 
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
@@ -188,7 +188,7 @@ public class FileExporter {
     public void appendStatus(int number,Status newStatus)
     {
         try {
-            int fileNumber = number/TweetDl.fileSize;
+            int fileNumber = (number-1)/TweetDl.getFileSize()+1;
             //synchronized (fw) {
             DocumentBuilderFactory documentBuilderFactory = documentBuilderFactor.get();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
