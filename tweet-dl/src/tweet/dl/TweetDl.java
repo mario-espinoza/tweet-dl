@@ -27,6 +27,9 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.FilterQuery;
+import twitter4j.User;
+
 
 //import View.MainView;
 
@@ -35,15 +38,8 @@ import twitter4j.conf.ConfigurationBuilder;
  * @author Meny
  */
 public class TweetDl {
-/*    final static String CONSUMER_KEY = "6MllqL2GH0SVI0N6pCz9pJ669";
-    final static String CONSUMER_SECRET = "NNo2FmSdP9rWfkJARv3VQybIolmrx3wyq0iku9FqqU2H7xiGgP";
-    final static String TwitterTokenURL = "https://api.twitter.com/oauth2/token";
-    final static String TwitterStreamURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=";
-    final static String ACCESS_TOKEN = "67437392-sAHI4aRJ0jupvfaDDcOFGDUQJrxivSLS9q8Jr73N1";
-    final static String ACCESS_SECRET = "S9yuzo0uxA11qHW7gSV4CWCzkrvdM9knUqdDBxrgd8MfO";
-    final static String TwitterRequestURL = "http://api.twitter.com/oauth/request_token";*/
     private static int fileSize=100;
-// = 100;
+
     static TwitterStream twitterStream;
     static StatusListener listener;
     
@@ -108,6 +104,34 @@ public class TweetDl {
             @Override
             public void onStatus(Status status) {
                 try {
+                    User user           = status.getUser( );
+                    String userName     = user.getScreenName( );
+                    String userLocation = user.getLocation( );
+                    String userLang     = user.getLang( );
+                    String userTZ       = user.getTimeZone( );
+                    int userUTC         = user.getUtcOffset( );
+                    
+                    System.out.println( userName );
+                    System.out.println( userLocation );
+                    System.out.println( userLang );
+                    System.out.println( userTZ );
+                    System.out.println( userUTC );
+                    
+                    String tLang     = status.getLang( );                    
+                    String tText     = status.getText( );
+                    if(status.getGeoLocation( )!=null)
+                    {
+                        String tLocation = status.getGeoLocation( ).toString( ); //if available
+                        System.out.println( "Location: "+tLocation );                        
+                    }
+                    if(status.getPlace( )!=null)
+                    {
+                        String tPlace    = status.getPlace( ).getFullName( );
+                        System.out.println( "Place: "+ tPlace );
+                    }
+                    System.out.println( tLang );
+                    System.out.println( tText );
+                    System.out.println( "----------------------------------------------------------" );
                     System.out.println(status.getUser().getName() + " : " + status.getText());
                     
                     //int fileSelect = statusCounter/fileSize;
@@ -142,8 +166,14 @@ public class TweetDl {
             }
         };
     
-        twitterStream.addListener(listener);        
-        twitterStream.sample();
+        /*twitterStream.addListener(listener);        
+        twitterStream.sample();*/        
+        FilterQuery fq = new FilterQuery( );
+        String keywords[] = { "transasia" };
+        fq.track( keywords );
+        twitterStream.addListener( listener );
+        twitterStream.filter( fq );
+        
     }
     
     public static void stopCapture()
