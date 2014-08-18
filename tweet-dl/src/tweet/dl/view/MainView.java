@@ -63,6 +63,7 @@ public class MainView extends javax.swing.JFrame {
         userNameCB = new javax.swing.JCheckBox();
         countryCB = new javax.swing.JCheckBox();
         createdAtCB = new javax.swing.JCheckBox();
+        countryCB = new javax.swing.JCheckBox();
         contributorCB = new javax.swing.JCheckBox();
         langCB = new javax.swing.JCheckBox();
         placeCB = new javax.swing.JCheckBox();
@@ -119,6 +120,9 @@ public class MainView extends javax.swing.JFrame {
 
         createdAtCB.setText(bundle1.getString("CreatedAtNameKey")); // NOI18N
         fieldsPanel.add(createdAtCB);
+
+        countryCB.setText(bundle1.getString("CountryNameKey")); // NOI18N
+        fieldsPanel.add(countryCB);
 
         contributorCB.setText(bundle1.getString("ContributorsNameKey")); // NOI18N
         fieldsPanel.add(contributorCB);
