@@ -13,19 +13,30 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import tweet.dl.view.MainView;
+import twitter4j.GeoLocation;
+import twitter4j.HashtagEntity;
+import twitter4j.MediaEntity;
+import twitter4j.Place;
+import twitter4j.RateLimitStatus;
+import twitter4j.Scopes;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
+import twitter4j.SymbolEntity;
 import twitter4j.TwitterException;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
+import twitter4j.URLEntity;
+import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.FilterQuery;
 import twitter4j.User;
@@ -272,4 +283,30 @@ public class TweetDl {
             //e.printStackTrace();
         }
    }
+    /*
+    void verClases()
+    {
+        
+        Status s;        
+        s.getContributors();
+        s.getCreatedAt();
+        s.getCurrentUserRetweetId();
+        s.getFavoriteCount();
+        s.getGeoLocation();
+        s.getHashtagEntities();
+        s.getId();
+        s.getInReplyToScreenName();
+        s.getInReplyToStatusId();
+        s.getInReplyToUserId();
+        s.getLang();
+        s.getMediaEntities();
+        s.getPlace();
+        s.getRateLimitStatus();
+        s.getRetweetCount();
+        s.getRetweetedStatus();
+        
+        
+        
+        
+    }*/
 }
